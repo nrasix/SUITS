@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ namespace Nrasix.SimpleTabSystem
         [SerializeField] private List<Tab> _tabs;
 
         private Tab _selectedTab;
+
+        public event Action<Tab> OnTabSelected;
+        public event Action<int> OnTabSelectedIndexChanged;
 
         private void Awake() => InitializeTabs();
 
@@ -30,6 +34,9 @@ namespace Nrasix.SimpleTabSystem
 
             _selectedTab = tab;
             _selectedTab.SelectTab();
+
+            OnTabSelected?.Invoke(_selectedTab);
+            OnTabSelectedIndexChanged?.Invoke(_tabs.IndexOf(_selectedTab));
         }
     }
 }

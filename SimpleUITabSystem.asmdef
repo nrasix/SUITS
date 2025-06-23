@@ -1,9 +1,11 @@
 {
-    "name": "SimpleUITabSystem",
+    "name": "com.nrasix.gitpackage",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [],
-    "excludePlatforms": [],
+    "excludePlatforms": [
+        "Editor"
+    ],
     "allowUnsafeCode": false,
     "overrideReferences": false,
     "precompiledReferences": [],

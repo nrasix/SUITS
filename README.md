@@ -39,7 +39,7 @@ using Nrasix.SimpleTabSystem;
 
 public class TestTabSystem : MonoBehaviour
 {
-    public TabSystem _tabSystem;
+    [SerializeField] private TabSystem _tabSystem;
 
     private Tab _currentTab;
 

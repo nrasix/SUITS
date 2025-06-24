@@ -1,6 +1,6 @@
 {
   "name": "com.nrasix.gitpackage",
-  "version": "0.0.65",
+  "version": "0.0.66",
   "displayName": "Simple UI Tab System",
   "description": "Simple system to create and manage tabs in Unity UI. It allows you to easily switch between different content panels using a tabbed interface.",
   "unity": "2019.1",

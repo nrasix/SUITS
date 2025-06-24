@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Nrasix.SimpleTabSystem
 {
-    public sealed class TabSystem : MonoBehaviour
+    public class TabSystem : MonoBehaviour
     {
         [SerializeField] private List<Tab> _tabs;
 

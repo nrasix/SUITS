@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TabImageEffect : BaseTabEffect
+public class TabColorEffect : BaseTabEffect
 {
     [SerializeField] protected Graphic _component;
     [SerializeField] private Color _selectedColor = Color.white;

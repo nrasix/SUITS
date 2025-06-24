@@ -11,7 +11,11 @@ namespace Nrasix.SimpleTabSystem.Editor
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+
+            EditorGUI.BeginDisabledGroup(true);
             EditorGUILayout.PropertyField(m_Script, new GUILayoutOption[0]);
+            EditorGUI.EndDisabledGroup();
+
             RaycastControlsGUI();
             serializedObject.ApplyModifiedProperties();
         }

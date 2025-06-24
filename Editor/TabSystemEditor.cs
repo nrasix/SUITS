@@ -1,5 +1,5 @@
 using UnityEditor;
-using UnityEditor.UIElements;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Nrasix.SimpleTabSystem.Editor
@@ -7,8 +7,7 @@ namespace Nrasix.SimpleTabSystem.Editor
     [CustomEditor(typeof(TabSystem))]
     public class TabSystemEditor : UnityEditor.Editor
     {
-        private VisualElement _root;
-
+        private SerializedProperty m_Script;
         private SerializedProperty _tabsProperty;
 
         private TabSystem _tabSystem;
@@ -16,34 +15,27 @@ namespace Nrasix.SimpleTabSystem.Editor
         private void OnEnable()
         {
             _tabsProperty = serializedObject.FindProperty("_tabs");
+            m_Script = serializedObject.FindProperty("m_Script");
 
-            _root = new VisualElement();
             _tabSystem = (TabSystem)target;
         }
 
-        public override VisualElement CreateInspectorGUI()
+        public override void OnInspectorGUI()
         {
-            var tabsField = new PropertyField(_tabsProperty, "TABS") {style = { paddingTop = 5, paddingBottom = 5 } };
-            _root.Add(tabsField);
+            serializedObject.Update();
 
-            var findButton = new Button(() =>
+            EditorGUI.BeginDisabledGroup(true);
+            EditorGUILayout.PropertyField(m_Script, new GUILayoutOption[0]);
+            EditorGUI.EndDisabledGroup();
+
+            EditorGUILayout.PropertyField(_tabsProperty, new GUIContent("Tabs"), true);
+
+            if (GUILayout.Button("Find child Tabs"))
             {
-                Undo.RecordObject(_tabSystem, "Find Tabs in Children");
                 FindTabsInChildren();
-                EditorUtility.SetDirty(_tabSystem);
-                serializedObject.ApplyModifiedProperties();
-            })
-            {
-                text = "Find Tabs in Children",
-                style =
-                    {
-                        height = 30
-                    }
-            };
+            }
 
-            _root.Add(findButton);
-
-            return _root;
+            serializedObject.ApplyModifiedProperties();
         }
 
         private void FindTabsInChildren()

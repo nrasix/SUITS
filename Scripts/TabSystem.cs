@@ -13,6 +13,9 @@ namespace Nrasix.SimpleTabSystem
         public Tab SelectedTab => _selectedTab;
         public int SelectedTabIndex => _tabs.IndexOf(_selectedTab);
 
+        public IReadOnlyList<Tab> Tabs => _tabs;
+        public int CountTabs => _tabs.Count;
+
         public event Action<Tab> OnTabSelected;
         public event Action<int> OnTabSelectedIndexChanged;
 
@@ -44,11 +47,33 @@ namespace Nrasix.SimpleTabSystem
             if (_selectedTab != null)
                 _selectedTab.UnselectTab();
 
-            _selectedTab = tab;
-            _selectedTab.SelectTab();
+            SetSelectedTab(tab);
 
             OnTabSelected?.Invoke(_selectedTab);
             OnTabSelectedIndexChanged?.Invoke(_tabs.IndexOf(_selectedTab));
+        }
+
+        public void SetSelectedTab(Tab tab)
+        {
+            _selectedTab = tab;
+            _selectedTab.SelectTab();
+        }
+
+        public void SetSelectedTab(int index)
+        {
+            if(index < 0 || index >= _tabs.Count)
+            {
+                Debug.LogError($"[TAB SYSTEM] Index {index} is out of range for the tabs list.");
+                return;
+            }
+
+            if(_tabs[index] is null)
+            {
+                Debug.LogError($"[TAB SYSTEM] Tab at index {index} is null.");
+                return;
+            }
+
+            SetSelectedTab(_tabs[index]);
         }
 
         public void NextTab()

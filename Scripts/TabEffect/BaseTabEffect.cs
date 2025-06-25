@@ -2,6 +2,6 @@ using UnityEngine;
 
 public abstract class BaseTabEffect : MonoBehaviour
 {
-    public abstract void ApplySelectEffect();
-    public abstract void ApplyDeselectEffect();
+    public abstract void SelectedEffect();
+    public abstract void DeselectedEffect();
 }

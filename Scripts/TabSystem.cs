@@ -10,6 +10,9 @@ namespace Nrasix.SimpleTabSystem
 
         private Tab _selectedTab;
 
+        public Tab SelectedTab => _selectedTab;
+        public int SelectedTabIndex => _tabs.IndexOf(_selectedTab);
+
         public event Action<Tab> OnTabSelected;
         public event Action<int> OnTabSelectedIndexChanged;
 
@@ -27,6 +30,15 @@ namespace Nrasix.SimpleTabSystem
             OnClickTab(_tabs[0]);
         }
 
+        private void OnDestroy()
+        {
+            for (int i = 0, len = _tabs.Count; i < len; i++)
+            {
+                var tab = _tabs[i];
+                tab.OnClickButton -= OnClickTab;
+            }
+        }
+
         private void OnClickTab(Tab tab)
         {
             if (_selectedTab != null)
@@ -37,6 +49,18 @@ namespace Nrasix.SimpleTabSystem
 
             OnTabSelected?.Invoke(_selectedTab);
             OnTabSelectedIndexChanged?.Invoke(_tabs.IndexOf(_selectedTab));
+        }
+
+        public void NextTab()
+        {
+            int nextIndex = (SelectedTabIndex + 1) % _tabs.Count;
+            OnClickTab(_tabs[nextIndex]);
+        }
+
+        public void PreviousTab()
+        {
+            int previousIndex = (SelectedTabIndex - 1 + _tabs.Count) % _tabs.Count;
+            OnClickTab(_tabs[previousIndex]);
         }
     }
 }

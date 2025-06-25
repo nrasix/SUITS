@@ -1,6 +1,6 @@
 # **SUITS** - Simple UI Tab System
 
-> A lightweight and easy-to-use tab system for Unity UI.
+If you need to quickly integrate tabs into your UI windows, then this asset is perfect for you. A lightweight and easy-to-use tab system for Unity UI.
 
 ## Features
 
@@ -22,7 +22,7 @@
 
 ## Usage
 
-### 1. Setup Tabs in the Editor
+### Setup Tabs in the Editor
 
 - Create a Canvas and add a Panel for your tab buttons.
 - Add Button objects as children of the panel for each tab.
@@ -30,7 +30,7 @@
 - Add the `TabSystem` component to the parent panel of the tab buttons.
 - Assign each tab button and its corresponding content panel in the `TabSystem` inspector.
 
-### 2. Scripting
+### Scripting
 
 You can control Tabs via script from event:
 
@@ -49,25 +49,13 @@ public class TestTabSystem : MonoBehaviour
 }
 ```
 
-### 3. Customization
+## Customization
 
 - This system include simple effect for Tab like switch color on selected and deselected Tab - `TabColorEffect`.
 - You can make self effect to `Tab` from class `BaseTabEffect`.
 - Style your tab buttons and content panels using Unity's UI tools.
 - Extend the `TabSystem` script to add animations or custom behaviors.
 
-## Example
-
-```
-Canvas
- ├──Panel (with TabSystem)
- │  └── TabsButton
- │      └── Tab_1 (Link: Tab_Panel_1)
- │      └── Tab_2 (Link: Tab_Panel_2)
- ├──Content
- │  └── Tab_Panel_1
- │  └── Tab_Panel_2
-```
 
 ## Support
 

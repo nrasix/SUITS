@@ -1,6 +1,5 @@
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Nrasix.SimpleTabSystem.Editor
 {
@@ -9,6 +8,7 @@ namespace Nrasix.SimpleTabSystem.Editor
     {
         private SerializedProperty m_Script;
         private SerializedProperty _tabsProperty;
+        private SerializedProperty _selectedTab;
 
         private TabSystem _tabSystem;
 
@@ -16,6 +16,7 @@ namespace Nrasix.SimpleTabSystem.Editor
         {
             _tabsProperty = serializedObject.FindProperty("_tabs");
             m_Script = serializedObject.FindProperty("m_Script");
+            _selectedTab = serializedObject.FindProperty("_selectedTab");
 
             _tabSystem = (TabSystem)target;
         }
@@ -30,9 +31,37 @@ namespace Nrasix.SimpleTabSystem.Editor
 
             EditorGUILayout.PropertyField(_tabsProperty, new GUIContent("Tabs"), true);
 
-            if (GUILayout.Button("Find child Tabs"))
+            if (Application.isPlaying)
             {
-                FindTabsInChildren();
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                {
+                    EditorGUILayout.BeginVertical(GUI.skin.box);
+                    {
+                        EditorGUILayout.LabelField("Editor Debug", EditorStyles.boldLabel);
+
+                        EditorGUILayout.BeginHorizontal();
+                        {
+                            if (GUILayout.Button("Previous tab"))
+                            {
+                                _tabSystem.PreviousTab();
+                            }
+                            if (GUILayout.Button("Next tab"))
+                            {
+                                _tabSystem.NextTab();
+                            }
+                        }
+                        EditorGUILayout.EndHorizontal();
+                    }
+                    EditorGUILayout.EndVertical();
+                }
+                EditorGUILayout.EndVertical();
+            }
+            else
+            {
+                if (GUILayout.Button("Find child Tabs"))
+                {
+                    FindTabsInChildren();
+                }
             }
 
             serializedObject.ApplyModifiedProperties();

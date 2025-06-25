@@ -1,4 +1,5 @@
 using System;
+using Nrasix.SimpleTabSystem.Effect;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -7,11 +8,24 @@ namespace Nrasix.SimpleTabSystem
     public class Tab : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private GameObject _panel;
+        [SerializeField] private bool _interactable = true;
 
         private BaseTabEffect[] _effectToTab;
         private int _countEffects;
 
-        public bool Interactable { get; set; } = true;
+        public bool Interactable
+        {
+            get => _interactable;
+            set
+            {
+                _interactable = value;
+
+                for (int i = 0; i < _countEffects; i++)
+                {
+                    _effectToTab[i].InteractableEffect(value);
+                }
+            }
+        }
 
         public event Action<Tab> OnClickButton;
 
@@ -46,7 +60,7 @@ namespace Nrasix.SimpleTabSystem
         {
             if (!Interactable)
                 return;
-            
+
             OnClickButton?.Invoke(this);
         }
     }

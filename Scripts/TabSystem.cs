@@ -44,20 +44,17 @@ namespace Nrasix.SimpleTabSystem
 
         private void OnClickTab(Tab tab)
         {
-            SetSelectedTab(tab);
-
-            OnTabSelected?.Invoke(_selectedTab);
-            OnTabSelectedIndexChanged?.Invoke(_tabs.IndexOf(_selectedTab));
-        }
-
-        public void SetSelectedTab(Tab tab)
-        {
             if (_selectedTab != null)
                 _selectedTab.UnselectTab();
 
             _selectedTab = tab;
             _selectedTab.SelectTab();
+
+            OnTabSelected?.Invoke(_selectedTab);
+            OnTabSelectedIndexChanged?.Invoke(_tabs.IndexOf(_selectedTab));
         }
+
+        public void SetSelectedTab(Tab tab) => OnClickTab(tab);
 
         public void SetSelectedTab(int index)
         {
@@ -73,7 +70,7 @@ namespace Nrasix.SimpleTabSystem
                 return;
             }
 
-            SetSelectedTab(_tabs[index]);
+            OnClickTab(_tabs[index]);
         }
 
         public void NextTab()

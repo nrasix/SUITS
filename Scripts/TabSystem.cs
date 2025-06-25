@@ -44,9 +44,6 @@ namespace Nrasix.SimpleTabSystem
 
         private void OnClickTab(Tab tab)
         {
-            if (_selectedTab != null)
-                _selectedTab.UnselectTab();
-
             SetSelectedTab(tab);
 
             OnTabSelected?.Invoke(_selectedTab);
@@ -55,6 +52,9 @@ namespace Nrasix.SimpleTabSystem
 
         public void SetSelectedTab(Tab tab)
         {
+            if (_selectedTab != null)
+                _selectedTab.UnselectTab();
+
             _selectedTab = tab;
             _selectedTab.SelectTab();
         }

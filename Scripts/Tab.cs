@@ -29,14 +29,16 @@ namespace Nrasix.SimpleTabSystem
 
         public event Action<Tab> OnClickButton;
 
-        public virtual void Initialize()
+        public void Initialize()
         {
             _effectToTab = GetComponents<BaseTabEffect>();
             _countEffects = _effectToTab.Length;
             UnselectTab();
+
+            OnInitialize();
         }
 
-        public virtual void SelectTab()
+        public void SelectTab()
         {
             _panel.SetActive(true);
 
@@ -44,9 +46,11 @@ namespace Nrasix.SimpleTabSystem
             {
                 _effectToTab[i].SelectedEffect();
             }
+
+            OnSelectTab();
         }
 
-        public virtual void UnselectTab()
+        public void UnselectTab()
         {
             _panel.SetActive(false);
 
@@ -54,6 +58,8 @@ namespace Nrasix.SimpleTabSystem
             {
                 _effectToTab[i].DeselectedEffect();
             }
+
+            OnUnselectTab();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -63,5 +69,9 @@ namespace Nrasix.SimpleTabSystem
 
             OnClickButton?.Invoke(this);
         }
+
+        public virtual void OnInitialize() { }
+        public virtual void OnSelectTab() { }
+        public virtual void OnUnselectTab() { }
     }
 }

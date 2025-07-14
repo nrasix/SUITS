@@ -33,9 +33,8 @@ namespace Nrasix.SimpleTabSystem
         {
             _effectToTab = GetComponents<BaseTabEffect>();
             _countEffects = _effectToTab.Length;
-            UnselectTab();
-
             OnInitialize();
+            UnselectTab();
         }
 
         public void SelectTab()
